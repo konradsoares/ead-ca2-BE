@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY . /app
-RUN ./mvnw clean install -DskipTests
-CMD ["./mvnw", "spring-boot:run"]
+RUN ./mvn clean install -DskipTests
+CMD ["./mvn", "spring-boot:run"]
