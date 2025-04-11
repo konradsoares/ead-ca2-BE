@@ -13,7 +13,7 @@ backend:
   image: recipe-backend:latest
   build: ../ead-ca2-BE
   ports:
-    - "9090:9090"
+    - "9090:8080"
   environment:
     DB_URI: mongodb://mongo:27017
     DB_NAME: ead_ca2
