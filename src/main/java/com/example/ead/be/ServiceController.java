@@ -63,12 +63,8 @@
 // 	}
 
 // }
-
 package com.example.ead.be;
 
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,28 +74,11 @@ import java.util.List;
 @RestController
 public class ServiceController {
 
-	@Autowired
-	private Environment env;
-
-	private Persistence p;
-
-	@PostConstruct
-	private void postConstruct() {
-		System.out.println("******************************************************");
-		System.out.println("env mongoUri:" + env.getProperty("databaseUrl"));
-		System.out.println("env dbName:" + env.getProperty("databaseName"));
-		System.out.println("env dbCollection:" + env.getProperty("databaseCollection"));
-		System.out.println("******************************************************");
-
-		p = new Persistence(
-				env.getProperty("databaseUrl"),
-				env.getProperty("databaseName"),
-				env.getProperty("databaseCollection"));
-	}
+	private final Persistence p = new Persistence(); // Use default constructor that connects to local Mongo
 
 	@GetMapping("/")
 	public String index() {
-		p.main2();
+		p.main2();  // Optionally remove this in production
 		return "Greetings from EAD CA2 Template project 2023-24!";
 	}
 
@@ -110,7 +89,7 @@ public class ServiceController {
 	}
 
 	@DeleteMapping("/recipe/{name}")
-	private int deleteRecipe(@PathVariable("name") String name) {
+	public int deleteRecipe(@PathVariable("name") String name) {
 		System.out.println("About to delete all the recipes named " + name);
 		return p.deleteRecipesByName(Arrays.asList(name));
 	}
