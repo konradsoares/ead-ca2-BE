@@ -7,17 +7,21 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - app-network
+      - ca2-network
 
-  backend:
-    image: recipe-backend:latest
-    container_name: backend
-    ports:
-      - "9090:9090"
-    depends_on:
-      - mongo
-    networks:
-      - app-network
+backend:
+  image: recipe-backend:latest
+  build: ../ead-ca2-BE
+  ports:
+    - "9090:9090"
+  environment:
+    DB_URI: mongodb+srv://ead2024:ead2024.@ead-2023-24.lpclwdo.mongodb.net/?retryWrites=true&w=majority
+    DB_NAME: ead_ca2
+    DB_COLLECTION: ead_2024
+  depends_on:
+    - mongo
+  networks:
+    - ca2-network
 
 networks:
-  app-network:
+  ca2-network:

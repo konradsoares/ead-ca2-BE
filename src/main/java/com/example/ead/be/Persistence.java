@@ -44,17 +44,28 @@ public class Persistence {
   private MongoDatabase database = null;
   private MongoCollection<Recipe> collection = null;
 
-  public Persistence()
-  {
-    // User/Password should NOT be embedded in the code. I just do it for simplicity while taking care to give this user the least privilege to avoid security issues!
-    initMongoDBClient("mongodb+srv://ead2024:ead2024.@ead-2023-24.lpclwdo.mongodb.net/", "ead_ca2", "ead_2024");
-  }
+  // public Persistence()
+  // {
+  //   // User/Password should NOT be embedded in the code. I just do it for simplicity while taking care to give this user the least privilege to avoid security issues!
+  //   initMongoDBClient("mongodb+srv://ead2024:ead2024.@ead-2023-24.lpclwdo.mongodb.net/", "ead_ca2", "ead_2024");
+  // }
 
-  public Persistence(String connString, String dbName, String colName)
-  {
-    initMongoDBClient(connString, dbName, colName);
-  }
+  // public Persistence(String connString, String dbName, String colName)
+  // {
+  //   initMongoDBClient(connString, dbName, colName);
+  // }
+  public Persistence() {
+    String connString = System.getenv("DB_URI");
+    String dbName = System.getenv("DB_NAME");
+    String collection = System.getenv("DB_COLLECTION");
 
+    // Fallback defaults (optional)
+    // if (connString == null) connString = "mongodb://mongo:27017";
+    // if (dbName == null) dbName = "ead_ca2";
+    // if (collection == null) collection = "ead_2024";
+
+    initMongoDBClient(connString, dbName, collection);
+  }
   public void initMongoDBClient(String connString, String dbName, String collectionName)
   {
     ConnectionString mongoUri = new ConnectionString(connString);
