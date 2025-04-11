@@ -6,6 +6,7 @@ RUN mvn clean package -DskipTests
 
 # Stage 2: Run
 FROM openjdk:17-jdk-slim
+RUN apt-get update && apt-get install -y wget
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 9090
