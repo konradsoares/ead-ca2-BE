@@ -15,7 +15,7 @@ backend:
   ports:
     - "9090:9090"
   environment:
-    DB_URI: mongodb+srv://ead2024:ead2024.@ead-2023-24.lpclwdo.mongodb.net/?retryWrites=true&w=majority
+    DB_URI: mongodb://mongo:27017
     DB_NAME: ead_ca2
     DB_COLLECTION: ead_2024
   depends_on:
